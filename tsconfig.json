@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@pharmacy/*": ["./modules/pharmacy/*"],
+      "@sale/*": ["./modules/sale/*"],
+      "@@report/*": ["./modules/report/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

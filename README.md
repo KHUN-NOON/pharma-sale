@@ -2,7 +2,33 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Install project dependencies
+
+```bash
+npm install
+```
+
+Reference ```.env.example``` file to setup environment variables in ```.env```
+
+Run this command to initialize Prisma and Database connection
+
+```bash
+npx prisma init --output ../generated/prisma
+```
+
+Migrate database
+
+```bash
+npx prisma migrate dev --name init
+```
+
+After run this command to seed database
+
+```bash
+npm run prisma.seed
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev

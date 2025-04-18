@@ -1,0 +1,9 @@
+[submodule "modules/pharmacy"]
+	path = modules/pharmacy
+	url = https://github.com/KHUN-NOON/-pharma-sale-pharmacy.git
+[submodule "modules/sale"]
+	path = modules/sale
+	url = https://github.com/KHUN-NOON/-pharma-sale-sale.git
+[submodule "modules/report"]
+	path = modules/report
+	url = https://github.com/KHUN-NOON/-pharma-sale-report.git

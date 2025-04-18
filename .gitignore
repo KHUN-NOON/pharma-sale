@@ -10,6 +10,12 @@
 !.yarn/releases
 !.yarn/versions
 
+# folders
+/generated
+
+# files
+.env
+
 # testing
 /coverage
 

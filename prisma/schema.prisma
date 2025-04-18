@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Item Item[]
+}
+
+model Unit {
+  id Int @id @default(autoincrement())
+  name String @unique
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Item Item[]
+}
+
+model Item {
+  id Int @id @default(autoincrement())
+  name String @unique
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+
+  unit Unit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  unitId Int
+
+  price Decimal @db.Decimal(10, 2)
+  stockQuantity Int
+
+  saleItem SaleItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Sale {
+  id        Int       @id @default(autoincrement())
+  date      DateTime  @default(now()) // The date and time of the sale
+  total     Decimal   @db.Decimal(10, 2) // The total price of the sale
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  saleItems SaleItem[] // Relationship to SaleItems
+}
+
+model SaleItem {
+  id        Int       @id @default(autoincrement())
+  saleId    Int
+  itemId    Int
+  quantity  Int       // How many of this item were sold
+  price     Decimal   @db.Decimal(10, 2) // The price of the item at the time of sale
+  sale      Sale      @relation(fields: [saleId], references: [id])
+  item      Item      @relation(fields: [itemId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
