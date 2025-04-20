@@ -27,6 +27,12 @@ Install project dependencies
 npm install
 ```
 
+Or run this if you encounter dependencies conflict
+
+```bash
+npm install --legacy-peer-deps
+```
+
 Reference ```.env.example``` file to setup environment variables in ```.env```
 
 Run this command to initialize Prisma and Database connection
