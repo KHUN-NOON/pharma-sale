@@ -13,19 +13,27 @@ type WithAuthArgsType<T> = {
 
 export async function withAuth<T>({ action, requireAuth = true }: WithAuthArgsType<T>): Promise<ActionResponseType<T>> {
     try {
-        const cookieHeader = cookies().toString();
+        const token = await getServerSession(authConfig);
+        // const cookieHeader = await cookies();
+        // const req = {
+        //     headers: {
+        //         cookie: cookieHeader
+        //     }
+        // }
 
-        const token = await getToken({
-            req: {
-                headers: {
-                    cookie: cookieHeader,
-                },
-            } as any,
-            secret: process.env.NEXTAUTH_SECRET,
-        });
+        // const token = await getToken({
+        //     req: {
+        //         headers: {
+        //             cookie: (await headers()).get('cookie') ?? ''
+        //         }
+        //     } as any,
+        //     secret: process.env.NEXTAUTH_SECRET,
+        // });
+
+        console.log(token)
 
         if (requireAuth) {
-            if (!token?.user) {
+            if (!token) {
                 return {
                     success: false,
                     message: "Unauthorized",

@@ -2,6 +2,25 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Cloning the Repository  
+
+To clone this repository **including all submodules**, run:  
+```bash
+git clone --recurse-submodules <repo-url>
+cd pharma-sale
+```
+
+If you already cloned without submodules, initialize them with:
+```bash
+git submodule update --init --recursive
+```
+
+To pull the latest changes for the main repo and all submodules:
+```bash
+git pull --recurse-submodules
+git submodule update --recursive
+```
+
 Install project dependencies
 
 ```bash
@@ -42,9 +61,21 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Login Credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+email - admin@demo.com
+password - admin123
+```
+
+## Tech Stack 
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)  
+- **Database**: [Prisma](https://prisma.io) + [PostgreSQL](https://www.postgresql.org/)  
+- **UI**: [shadcn/ui](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)  
+- **Forms**: [Zod](https://zod.dev/) + [React Hook Form](https://react-hook-form.com/)  
+- **Auth**: [NextAuth.js](https://next-auth.js.org/)  
+
 
 ## Learn More
 

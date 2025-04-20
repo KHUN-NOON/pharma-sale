@@ -1,5 +1,7 @@
 import type { AuthOptions, Awaitable, RequestInternal, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { login } from '@/services/auth.service';
+import { loginSchema } from '@/zod/auth';
 
 const authConfig = {
     pages: {
@@ -7,8 +9,8 @@ const authConfig = {
     },
     session: {
         strategy: 'jwt',
-        maxAge: 60 * 10,
-        updateAge: 60 * 9,
+        maxAge: 60 * 60 * 24, // 1 day
+        updateAge: 60 * 60 * 22, // 22 hours
     },
     callbacks: {
         async signIn(params) {
@@ -39,8 +41,35 @@ const authConfig = {
                 email: { label: 'Email', type: 'email' },
                 password: { label: 'Password', type: 'password' }
             },
-            authorize: function (credentials: Record<'email' | 'password', string> | undefined, req: Pick<RequestInternal, 'body' | 'query' | 'headers' | 'method'>): Awaitable<User | null> {
-                throw new Error('Function not implemented.');
+            authorize: async function (credentials: Record<'email' | 'password', string> | undefined, req: Pick<RequestInternal, 'body' | 'query' | 'headers' | 'method'>): Promise<User | null> {
+                try {
+                    const { email, password } = credentials || {};
+                    
+                    const validate = loginSchema.safeParse({
+                        email,
+                        password
+                    });
+
+                    if ( !validate.success ) {
+                        return null;
+                    }
+
+                    const { data, success, message } = await login({ 
+                        email: validate.data.email, 
+                        password: validate.data.password 
+                    });
+
+                    if ( !success ) {
+                        throw new Error(message ?? 'Login failed!');
+                    }
+
+                    return {
+                        id: data?.id.toString(),
+                        email: data?.email
+                    } as User;
+                } catch (error) {
+                    return null;
+                }
             }
         })
     ],
