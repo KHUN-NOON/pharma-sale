@@ -13,7 +13,9 @@ export default async function SalesPage({ searchParams }: { searchParams: { [key
     const params = await searchParams;
     const page = parseInt(params.page as string) || 1;
     const limit = parseInt(params.limit as string) || 10;
-    const sales = await getSales({ page, limit });
+    const startDate = typeof params.startDate === 'string' ? params.startDate : undefined;
+    const endDate = typeof params.endDate === 'string' ? params.endDate : undefined;
+    const sales = await getSales({ page, limit, startDate, endDate });
 
     const { data } = sales;
 

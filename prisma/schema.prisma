@@ -77,8 +77,8 @@ model SaleItem {
   itemId    Int
   quantity  Int       // How many of this item were sold
   price     Decimal   @db.Decimal(10, 2) // The price of the item at the time of sale
-  sale      Sale      @relation(fields: [saleId], references: [id])
-  item      Item      @relation(fields: [itemId], references: [id])
+  sale      Sale      @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -1,7 +1,8 @@
 import ChartCustom from "@/components/ui/bar-chart";
 import StatsCard from "@/components/ui/stats-card";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
-import { getItemCount, getSaleCount, getTotalSaleAmount, topTenSaleItems, topTenSaleItemsChart, totalItemSold } from "@/modules/report/services/report.service";
+import { MonthlyRevenueChart } from "@/components/ui/monthly-revenue-chart";
+import { getItemCount, getSaleCount, getTotalSaleAmount, topTenSaleItemsChart, totalItemSold } from "@/modules/report/services/report.service";
 
 export const metadata = {
     title: "Dashboard",
@@ -18,8 +19,8 @@ export default async function DashboardPage() {
 
 
     return (
-        <div className="w-full flex flex-col gap-6">
-            <div className="grid grid-cols-4 gap-4"> {/* Equal 4-column grid */}
+        <div className="w-full flex flex-col flex-wrap gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"> {/* Equal 4-column grid */}
                 <StatsCard
                     title={"Total Items"}
                     value={(items.data?.itemCount || 0).toLocaleString()}
@@ -45,7 +46,7 @@ export default async function DashboardPage() {
                     icon="💰"
                 />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="rounded-md border">
                     <p className="m-6 font-bold">Top 10 Items</p>
                     <Table>
@@ -69,7 +70,7 @@ export default async function DashboardPage() {
                         </TableBody>
                     </Table>
                 </div>
-                <ChartCustom />
+                <MonthlyRevenueChart />
             </div>
         </div>
     );

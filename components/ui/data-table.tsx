@@ -15,8 +15,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "./button"
-import { Input } from "./input"
 import PaginationControl, { PaginationControlsProps } from "./pagination-control"
 
 interface DataTableProps<TData, TValue> {

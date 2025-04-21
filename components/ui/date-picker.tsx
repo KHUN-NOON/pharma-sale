@@ -14,15 +14,12 @@ import {
 } from "@/components/ui/popover"
 
 type Props = {
-    date?: Date,
-    onSelect: (data?: Date) => void
+  date?: Date,
+  onSelect: (data?: Date) => void,
+  placeholder?: string
 }
 
-export default function DatePicker({ date, onSelect }: Props) {
-  React.useEffect(() => {
-    console.log(date)
-  }, [date])
-
+export default function DatePicker({ date, onSelect, placeholder = "Pick a date" }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,7 +31,7 @@ export default function DatePicker({ date, onSelect }: Props) {
           )}
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
@@ -47,7 +44,7 @@ export default function DatePicker({ date, onSelect }: Props) {
             formatCaption: (date, options) => {
               return format(date, 'dd/MM/yyyy', { locale: options?.locale });
             },
-          }}    
+          }}
         />
       </PopoverContent>
     </Popover>

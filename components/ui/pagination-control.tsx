@@ -31,7 +31,6 @@ export default function PaginationControl({
     const params = new URLSearchParams(searchParams);
     params.set('page', page.toString());
     params.set('limit', searchParams.get('limit') || '10');
-    params.set('search', searchParams.get('search') || '');
     router.push(`?${params.toString()}`);
   };
 
